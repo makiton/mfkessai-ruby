@@ -197,7 +197,7 @@ module SwaggerClient
         invalid_properties.push("invalid value for 'name', the character length must be great than or equal to 1.")
       end
 
-      if !@tel.nil? && @tel !~ Regexp.new(/^0((\\d{1,2}-?\\d{1,4}|\\d{3,4}-?\\d{1,2})-?\\d{4}|120-?\\d{3}-?\\d{3})$/)
+      if !@tel.nil? && @tel !~ Regexp.new(/^0((\d{1,2}-?\d{1,4}|\d{3,4}-?\d{1,2})-?\d{4}|120-?\d{3}-?\d{3})$/)
         invalid_properties.push("invalid value for 'tel', must conform to the pattern /^0((\\d{1,2}-?\\d{1,4}|\\d{3,4}-?\\d{1,2})-?\\d{4}|120-?\\d{3}-?\\d{3})$/.")
       end
 
@@ -223,9 +223,9 @@ module SwaggerClient
       return false if !@name.nil? && @name.to_s.length < 1
       prefecture_validator = EnumAttributeValidator.new('String', ["北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"])
       return false unless prefecture_validator.valid?(@prefecture)
-      return false if !@tel.nil? && @tel !~ Regexp.new(/^0((\\d{1,2}-?\\d{1,4}|\\d{3,4}-?\\d{1,2})-?\\d{4}|120-?\\d{3}-?\\d{3})$/)
+      return false if !@tel.nil? && @tel !~ Regexp.new(/^0((\d{1,2}-?\d{1,4}|\d{3,4}-?\d{1,2})-?\d{4}|120-?\d{3}-?\d{3})$/)
       return false if !@title.nil? && @title.to_s.length > 30
-      return false if !@zip_code.nil? && @zip_code !~ Regexp.new(/^\\d{3}-?\\d{4}$/)
+      return false if !@zip_code.nil? && @zip_code !~ Regexp.new(/^\d{3}-?\d{4}$/)
       return true
     end
 
@@ -295,7 +295,7 @@ module SwaggerClient
     # @param [Object] tel Value to be assigned
     def tel=(tel)
 
-      if !tel.nil? && tel !~ Regexp.new(/^0((\\d{1,2}-?\\d{1,4}|\\d{3,4}-?\\d{1,2})-?\\d{4}|120-?\\d{3}-?\\d{3})$/)
+      if !tel.nil? && tel !~ Regexp.new(/^0((\d{1,2}-?\d{1,4}|\d{3,4}-?\d{1,2})-?\d{4}|120-?\d{3}-?\d{3})$/)
         fail ArgumentError, "invalid value for 'tel', must conform to the pattern /^0((\\d{1,2}-?\\d{1,4}|\\d{3,4}-?\\d{1,2})-?\\d{4}|120-?\\d{3}-?\\d{3})$/."
       end
 
@@ -317,7 +317,7 @@ module SwaggerClient
     # @param [Object] zip_code Value to be assigned
     def zip_code=(zip_code)
 
-      if !zip_code.nil? && zip_code !~ Regexp.new(/^\\d{3}-?\\d{4}$/)
+      if !zip_code.nil? && zip_code !~ Regexp.new(/^\d{3}-?\d{4}$/)
         fail ArgumentError, "invalid value for 'zip_code', must conform to the pattern /^\\d{3}-?\\d{4}$/."
       end
 
