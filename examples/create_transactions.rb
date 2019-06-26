@@ -6,13 +6,16 @@ require 'securerandom'
 SwaggerClient.configure do |conf|
   conf.host = ENV['MFK_API_HOST']
   conf.api_key['apikey'] = ENV['MFK_API_KEY']
+  conf.verify_ssl = false
+  conf.verify_ssl_host = false
+  conf.debugging = true
 end
 
 def create_transaction
   payload = SwaggerClient::TransactionPayload.new(
     date: Date.today.to_time.iso8601,
     issue_date: Date.today.to_time.iso8601,
-    due_date: Date.new(2019, 6, 30).to_time.iso8601,
+    due_date: Date.new(2019, 7, 31).to_time.iso8601,
     amount: 108,
     user_defined_id: SecureRandom.uuid,
     email_flag: true,
@@ -63,7 +66,6 @@ n = (ARGV[0] || 1).to_i
 
 n.times do
   res = create_transaction do |payload|
-    payload.destination[:customer][:user_defined_id] = "customer_#{SecureRandom.uuid}"
   end
   puts res.to_json
 end
