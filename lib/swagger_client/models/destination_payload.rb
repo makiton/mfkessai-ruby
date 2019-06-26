@@ -358,7 +358,7 @@ module SwaggerClient
         fail ArgumentError, "tel cannot be nil"
       end
 
-      if tel !~ Regexp.new(/^0((\\d{1,2}-?\\d{1,4}|\\d{3,4}-?\\d{1,2})-?\\d{4}|120-?\\d{3}-?\\d{3})$/)
+      if tel !~ Regexp.new(/^0((\d{1,2}-?\d{1,4}|\d{3,4}-?\d{1,2})-?\d{4}|120-?\d{3}-?\d{3})$/)
         fail ArgumentError, "invalid value for 'tel', must conform to the pattern /^0((\\d{1,2}-?\\d{1,4}|\\d{3,4}-?\\d{1,2})-?\\d{4}|120-?\\d{3}-?\\d{3})$/."
       end
 
@@ -383,7 +383,7 @@ module SwaggerClient
         fail ArgumentError, "zip_code cannot be nil"
       end
 
-      if zip_code !~ Regexp.new(/^\\d{3}-?\\d{4}$/)
+      if zip_code !~ Regexp.new(/^\d{3}-?\d{4}$/)
         fail ArgumentError, "invalid value for 'zip_code', must conform to the pattern /^\\d{3}-?\\d{4}$/."
       end
 
