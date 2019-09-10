@@ -1,12 +1,23 @@
-# SwaggerClient::Error
+# OpenapiClient::Error
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**code** | **String** | an application-specific error code, expressed as a string value. | [optional] 
-**detail** | **String** | a human-readable explanation specific to this occurrence of the problem. | [optional] 
-**id** | **String** | a unique identifier for this particular occurrence of the problem. | [optional] 
-**meta** | **Object** | a meta object containing non-standard meta-information about the error. | [optional] 
-**status** | **String** | the HTTP status code applicable to this problem, expressed as a string value. | [optional] 
+**code** | **String** | エラーコードです。それぞれの説明については、[エラーコード](https://mfkessai.co.jp/developer/v2/docs/#error_codes)を参照してください。 | [optional] 
+**message** | **String** | エラー発生原因に関する情報です。 | [optional] 
+**param** | **String** | 何らかの値に関連するエラーの場合その値が入ります。 | [optional] 
+**type** | **String** | エラー種別です。 | [optional] 
+
+## Code Sample
+
+```ruby
+require 'OpenapiClient'
+
+instance = OpenapiClient::Error.new(code: null,
+                                 message: null,
+                                 param: null,
+                                 type: null)
+```
 
 

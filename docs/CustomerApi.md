@@ -1,61 +1,58 @@
-# SwaggerClient::CustomerApi
+# OpenapiClient::CustomerApi
 
-All URIs are relative to *https://sandbox-api.mfkessai.co.jp/v1*
+All URIs are relative to *https://sandbox-api.mfkessai.co.jp/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**customer_create_examination**](CustomerApi.md#customer_create_examination) | **POST** /customers/{id}/examination | create examination customer
-[**customer_credit_facility**](CustomerApi.md#customer_credit_facility) | **GET** /customers/{id}/credit_facility | credit facility customer
-[**customer_examination**](CustomerApi.md#customer_examination) | **GET** /customers/{id}/examination | examination customer
-[**customer_index**](CustomerApi.md#customer_index) | **GET** /customers | index customer
-[**customer_show**](CustomerApi.md#customer_show) | **GET** /customers/{id} | show customer
+[**create_customer**](CustomerApi.md#create_customer) | **POST** /customers | 顧客を登録することができます。顧客には必ず一つの請求先が必要であるため同時に請求先一件も登録します。
+[**get_customer**](CustomerApi.md#get_customer) | **GET** /customers/{customer_id} | 顧客IDを指定して対象顧客１件を取得することができます。
+[**get_customers_list**](CustomerApi.md#get_customers_list) | **GET** /customers | 顧客の一覧を取得することができます。顧客番号や支払方法、未入金の有無で絞り込んで取得することもできます。
 
 
-# **customer_create_examination**
-> MfkCustomerExamination customer_create_examination(id, payload)
 
-create examination customer
+## create_customer
 
-顧客IDを指定して顧客審査を申請
+> Customer create_customer(payload)
+
+顧客を登録することができます。顧客には必ず一つの請求先が必要であるため同時に請求先一件も登録します。
+
+顧客登録
 
 ### Example
+
 ```ruby
 # load the gem
-require 'swagger_client'
+require 'openapi_client'
 # setup authorization
-SwaggerClient.configure do |config|
+OpenapiClient.configure do |config|
   # Configure API key authorization: apikey
   config.api_key['apikey'] = 'YOUR API KEY'
   # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
   #config.api_key_prefix['apikey'] = 'Bearer'
 end
 
-api_instance = SwaggerClient::CustomerApi.new
-
-id = "id_example" # String | 顧客ID
-
-payload = SwaggerClient::CustomerExaminationPayload.new # CustomerExaminationPayload | 
-
+api_instance = OpenapiClient::CustomerApi.new
+payload = OpenapiClient::CustomerPayload.new # CustomerPayload | 顧客登録情報です。請求先情報も含まれています。
 
 begin
-  #create examination customer
-  result = api_instance.customer_create_examination(id, payload)
+  #顧客を登録することができます。顧客には必ず一つの請求先が必要であるため同時に請求先一件も登録します。
+  result = api_instance.create_customer(payload)
   p result
-rescue SwaggerClient::ApiError => e
-  puts "Exception when calling CustomerApi->customer_create_examination: #{e}"
+rescue OpenapiClient::ApiError => e
+  puts "Exception when calling CustomerApi->create_customer: #{e}"
 end
 ```
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| 顧客ID | 
- **payload** | [**CustomerExaminationPayload**](CustomerExaminationPayload.md)|  | 
+ **payload** | [**CustomerPayload**](CustomerPayload.md)| 顧客登録情報です。請求先情報も含まれています。 | 
 
 ### Return type
 
-[**MfkCustomerExamination**](MfkCustomerExamination.md)
+[**Customer**](Customer.md)
 
 ### Authorization
 
@@ -63,53 +60,53 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, application/xml, application/gob, application/x-gob
- - **Accept**: application/vnd.goa.error, application/vnd.mfk.customer_examination, application/vnd.goa.error, application/vnd.goa.error, application/vnd.goa.error
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 
+## get_customer
 
-# **customer_credit_facility**
-> MfkCreditFacility customer_credit_facility(id)
+> Customer get_customer(customer_id)
 
-credit facility customer
+顧客IDを指定して対象顧客１件を取得することができます。
 
-顧客IDを指定して与信枠を取得
+顧客取得
 
 ### Example
+
 ```ruby
 # load the gem
-require 'swagger_client'
+require 'openapi_client'
 # setup authorization
-SwaggerClient.configure do |config|
+OpenapiClient.configure do |config|
   # Configure API key authorization: apikey
   config.api_key['apikey'] = 'YOUR API KEY'
   # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
   #config.api_key_prefix['apikey'] = 'Bearer'
 end
 
-api_instance = SwaggerClient::CustomerApi.new
-
-id = "id_example" # String | 顧客ID
-
+api_instance = OpenapiClient::CustomerApi.new
+customer_id = 'customer_id_example' # String | 対象の顧客IDを指定してください。
 
 begin
-  #credit facility customer
-  result = api_instance.customer_credit_facility(id)
+  #顧客IDを指定して対象顧客１件を取得することができます。
+  result = api_instance.get_customer(customer_id)
   p result
-rescue SwaggerClient::ApiError => e
-  puts "Exception when calling CustomerApi->customer_credit_facility: #{e}"
+rescue OpenapiClient::ApiError => e
+  puts "Exception when calling CustomerApi->get_customer: #{e}"
 end
 ```
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| 顧客ID | 
+ **customer_id** | **String**| 対象の顧客IDを指定してください。 | 
 
 ### Return type
 
-[**MfkCreditFacility**](MfkCreditFacility.md)
+[**Customer**](Customer.md)
 
 ### Authorization
 
@@ -117,110 +114,69 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, application/xml, application/gob, application/x-gob
- - **Accept**: application/vnd.goa.error, application/vnd.goa.error, application/vnd.goa.error, application/vnd.goa.error, application/vnd.mfk.credit_facility
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 
+## get_customers_list
 
-# **customer_examination**
-> MfkCustomerExamination customer_examination(id)
+> InlineResponse200 get_customers_list(opts)
 
-examination customer
+顧客の一覧を取得することができます。顧客番号や支払方法、未入金の有無で絞り込んで取得することもできます。
 
-顧客IDを指定して顧客審査を取得
+顧客一覧取得
 
 ### Example
+
 ```ruby
 # load the gem
-require 'swagger_client'
+require 'openapi_client'
 # setup authorization
-SwaggerClient.configure do |config|
+OpenapiClient.configure do |config|
   # Configure API key authorization: apikey
   config.api_key['apikey'] = 'YOUR API KEY'
   # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
   #config.api_key_prefix['apikey'] = 'Bearer'
 end
 
-api_instance = SwaggerClient::CustomerApi.new
-
-id = "id_example" # String | 顧客ID
-
-
-begin
-  #examination customer
-  result = api_instance.customer_examination(id)
-  p result
-rescue SwaggerClient::ApiError => e
-  puts "Exception when calling CustomerApi->customer_examination: #{e}"
-end
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| 顧客ID | 
-
-### Return type
-
-[**MfkCustomerExamination**](MfkCustomerExamination.md)
-
-### Authorization
-
-[apikey](../README.md#apikey)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, application/xml, application/gob, application/x-gob
- - **Accept**: application/vnd.goa.error, application/vnd.goa.error, application/vnd.goa.error, application/vnd.goa.error, application/vnd.mfk.customer_examination
-
-
-
-# **customer_index**
-> MfkCustomers customer_index(opts)
-
-index customer
-
-顧客リストを取得
-
-### Example
-```ruby
-# load the gem
-require 'swagger_client'
-# setup authorization
-SwaggerClient.configure do |config|
-  # Configure API key authorization: apikey
-  config.api_key['apikey'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  #config.api_key_prefix['apikey'] = 'Bearer'
-end
-
-api_instance = SwaggerClient::CustomerApi.new
-
-opts = { 
-  page: 1, # Integer | ページ番号
-  per_page: 20 # Integer | 1ページあたりの件数
+api_instance = OpenapiClient::CustomerApi.new
+opts = {
+  number: 'number_example', # String | 任意の顧客の `number`を指定します。該当する顧客がいる場合、その一件のみが返却されます。
+  payment_method: ['payment_method_example'], # Array<String> | 支払方法を指定します。該当する支払方法の顧客が返却されます。指定できる値は `bank_transfer`(銀行振込), `account_transfer`(口座振替)の２種類のみです。支払方法は複数指定することができます。 複数指定する場合は`?payment_method=bank_transfer&payment_method=account_transfer`のように指定してください。
+  has_alert: true, # Boolean | アラートの有無をboolean値で指定します。`true`の場合アラート有り、`false`の場合はアラート無しを表します。
+  created_at_from: DateTime.parse('2013-10-20T19:20:30+01:00'), # DateTime | 指定された日時以降に作成された顧客を取得します。指定された日時に作成されたものも含まれます。 RFC3399の`date-time`(2019-04-01T10:36:43+09:00)で指定してください。
+  created_at_to: DateTime.parse('2013-10-20T19:20:30+01:00'), # DateTime | 指定された日時以前に作成された顧客を取得します。指定された日時に作成されたものも含まれます。 RFC3399の`date-time`(2019-04-01T10:36:43+09:00)で指定してください。
+  after: 'after_example', # String | 任意のリソースIDを指定します。追加日時の降順でこのIDのリソースよりも後のリソースを取得します。この時`after`で指定したIDのリソースは結果に含まれません。
+  before: 'before_example', # String | 任意のリソースIDを指定します。追加日時の降順でこのIDのリソースよりも前のリソースを取得します。この時`before`で指定したIDのリソースは結果に含まれません。
+  limit: 56 # Integer | 取得したいリソースの最大件数を指定します。1~200の間の整数で指定してください。指定がない場合は20になります。
 }
 
 begin
-  #index customer
-  result = api_instance.customer_index(opts)
+  #顧客の一覧を取得することができます。顧客番号や支払方法、未入金の有無で絞り込んで取得することもできます。
+  result = api_instance.get_customers_list(opts)
   p result
-rescue SwaggerClient::ApiError => e
-  puts "Exception when calling CustomerApi->customer_index: #{e}"
+rescue OpenapiClient::ApiError => e
+  puts "Exception when calling CustomerApi->get_customers_list: #{e}"
 end
 ```
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **Integer**| ページ番号 | [optional] [default to 1]
- **per_page** | **Integer**| 1ページあたりの件数 | [optional] [default to 20]
+ **number** | **String**| 任意の顧客の &#x60;number&#x60;を指定します。該当する顧客がいる場合、その一件のみが返却されます。 | [optional] 
+ **payment_method** | [**Array&lt;String&gt;**](String.md)| 支払方法を指定します。該当する支払方法の顧客が返却されます。指定できる値は &#x60;bank_transfer&#x60;(銀行振込), &#x60;account_transfer&#x60;(口座振替)の２種類のみです。支払方法は複数指定することができます。 複数指定する場合は&#x60;?payment_method&#x3D;bank_transfer&amp;payment_method&#x3D;account_transfer&#x60;のように指定してください。 | [optional] 
+ **has_alert** | **Boolean**| アラートの有無をboolean値で指定します。&#x60;true&#x60;の場合アラート有り、&#x60;false&#x60;の場合はアラート無しを表します。 | [optional] 
+ **created_at_from** | **DateTime**| 指定された日時以降に作成された顧客を取得します。指定された日時に作成されたものも含まれます。 RFC3399の&#x60;date-time&#x60;(2019-04-01T10:36:43+09:00)で指定してください。 | [optional] 
+ **created_at_to** | **DateTime**| 指定された日時以前に作成された顧客を取得します。指定された日時に作成されたものも含まれます。 RFC3399の&#x60;date-time&#x60;(2019-04-01T10:36:43+09:00)で指定してください。 | [optional] 
+ **after** | **String**| 任意のリソースIDを指定します。追加日時の降順でこのIDのリソースよりも後のリソースを取得します。この時&#x60;after&#x60;で指定したIDのリソースは結果に含まれません。 | [optional] 
+ **before** | **String**| 任意のリソースIDを指定します。追加日時の降順でこのIDのリソースよりも前のリソースを取得します。この時&#x60;before&#x60;で指定したIDのリソースは結果に含まれません。 | [optional] 
+ **limit** | **Integer**| 取得したいリソースの最大件数を指定します。1~200の間の整数で指定してください。指定がない場合は20になります。 | [optional] 
 
 ### Return type
 
-[**MfkCustomers**](MfkCustomers.md)
+[**InlineResponse200**](InlineResponse200.md)
 
 ### Authorization
 
@@ -228,62 +184,6 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, application/xml, application/gob, application/x-gob
- - **Accept**: application/vnd.goa.error, application/vnd.goa.error, application/vnd.goa.error, application/vnd.mfk.customers
-
-
-
-# **customer_show**
-> MfkCustomer customer_show(id)
-
-show customer
-
-顧客IDを指定して取得
-
-### Example
-```ruby
-# load the gem
-require 'swagger_client'
-# setup authorization
-SwaggerClient.configure do |config|
-  # Configure API key authorization: apikey
-  config.api_key['apikey'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  #config.api_key_prefix['apikey'] = 'Bearer'
-end
-
-api_instance = SwaggerClient::CustomerApi.new
-
-id = "id_example" # String | 顧客ID
-
-
-begin
-  #show customer
-  result = api_instance.customer_show(id)
-  p result
-rescue SwaggerClient::ApiError => e
-  puts "Exception when calling CustomerApi->customer_show: #{e}"
-end
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| 顧客ID | 
-
-### Return type
-
-[**MfkCustomer**](MfkCustomer.md)
-
-### Authorization
-
-[apikey](../README.md#apikey)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, application/xml, application/gob, application/x-gob
- - **Accept**: application/vnd.goa.error, application/vnd.goa.error, application/vnd.goa.error, application/vnd.goa.error, application/vnd.mfk.customer
-
-
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
